@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happu Ki Nikli Savaari</title>
+	<link rel="icon" type="image/png" href="Favicon.png"/>
+
+
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  	<meta property="og:url"           content="https://happu.zee5.com/" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Happu Ki Nikli Savaari" />
+	<meta property="og:description"   content="Arre Dada! Khel ke toh dekho." />
+	<meta property="og:image"         content="https://happu.zee5.com/FbImg.png" />		
+  
+  <link rel="stylesheet" type="text/css" href="game.css">
+  <link href="LeaderBoard.css" rel="stylesheet">
+  
+ 	
+  
+  <script  crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D0VP4SZJ4K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D0VP4SZJ4K');
+</script>
+	
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4FXJX6');</script>
+<!-- End Google Tag Manager -->
+  
+   <script>
+	   
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '4281473368570977',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v11.0'
+    });
+      
+    FB.AppEvents.logPageView();
+	  
+FB.getLoginStatus((response) => {
+		if (response.status === 'connected') {
+			//user is authorized
+			document.getElementById('fbLogin').style.display = 'none';
+			
+		} else {
+			document.getElementById('fbLogin').style.display = 'block';
+		}
+	}); 
+	  
+      
+  }
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+    <script type="text/javascript" src="min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W4FXJX6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->	
+	
+
+<script defer src="LeaderBoard.js"></script>
+<script>
+	
+	
+window.onload = chooseContextPic;
+
+var contextPic = new Array("media/graphics/splash/mobile/cover-start-1.jpg","media/graphics/splash/mobile/cover-start-2.jpg");
+var contextAudio = new Array("media/audio/opening/HappuMom.mp3","media/audio/opening/HappuWife.mp3");	
+
+function chooseContextPic() {
+     	var randomNum = Math.floor(Math.random() * contextPic.length);
+     	document.getElementById("contextScreen").src = contextPic[randomNum];
+	document.getElementById("contextScreenAudio").src = contextAudio[randomNum];
+
+	
+	
+	
+	
+/********************************************** Get Top Score **************************************************************/
+	
+	
+var scoreAPI = "https://d1ygamnvncasrc.cloudfront.net/test/getscores?skip=0&limit=50";
+	
+
+				
+	fetch(scoreAPI).then(response => {
+					
+					return response.json();
+					
+				}).then(data => {
+					
+					var topScore = data[0].score;
+					console.log(topScore);
+					document.getElementById('HighScore').innerHTML = topScore;
+						
+ 
+				}).catch((error) => {
+
+					console.error('Error:', error);
+					
+				}); 
+
+	
+	
+}
+	
+/******************************************* End Get Top Score *********************************************/	
+    
+	function tap() {
+	
+		var tapAudio = document.getElementById("tap");
+        	tapAudio.play();
+        	tapAudio.volume = 1;
+
+	}
+	
+	
+	function play() {
+
+        
+        // Set the name of the "hidden" property and the change event for visibility
+        var hidden, visibilityChange; 
+        if (typeof document.hidden !== "undefined") {
+          hidden = "hidden";
+          visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") { // Firefox up to v17
+          hidden = "mozHidden";
+          visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") { // Chrome up to v32, Android up to v4.4, Blackberry up to v10
+          hidden = "webkitHidden";
+          visibilityChange = "webkitvisibilitychange";
+        }
+        
+        var audio = document.getElementById("audio");
+	var contextDialogue = document.getElementById("contextScreenAudio");
+	 
+	contextDialogue.play();
+	contextDialogue.volume = 0.4;
+	audio.play();
+       	audio.volume = 0.07;	
+       			
+	contextDialogue.addEventListener('ended', (event) => {
+    			document.getElementById('play').style.display = 'none';
+			//audio.play();
+       			//audio.volume = 0.07;
+	});
+		
+	
+        // If the page is hidden, pause the video;
+        // if the page is shown, play the video
+        function handleVisibilityChange() {
+          if (document[hidden]) {
+            audio.pause();
+          } else {
+            audio.play();
+            audio.volume = 0.07;
+          }
+        }
+
+        // Warn if the browser doesn't support addEventListener or the Page Visibility API
+        if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
+          alert("Your Browser Doesnt Support Background Audio Muting");
+        } else {
+          // Handle page visibility change   
+          document.addEventListener(visibilityChange, handleVisibilityChange, false);
+         
+        }
+
+    }
+
+  
+
+ 
+ 
+    
+    </script>
+ 
+  <div id="ajaxbar">
+    <div id="game"><canvas id="canvas"></canvas></div>
+  
+    <div id="orientate"><img src="media/graphics/orientate/landscape.jpg" /></div>
+	
+    <div id="play" class="play" onclick=""><img src="media/graphics/splash/mobile/cover-start-1.jpg" id="contextScreen" onclick="play();"/></div> 
+        <img id="scrollDown" width="220" height="277"></img>
+
+   
+<!-- Audio -->	
+	
+	
+	<audio id="audio" src="media/audio/music/bgm.mp3" loop= "true" type="audio/mpeg"></audio>
+	
+	<audio id="tap" src="media/audio/sfx/button.mp3" type="audio/mpeg"></audio>
+	
+	<audio id="contextScreenAudio" src="media/audio/opening/HappuMom.mp3" type="audio/mpeg" preload="auto"></audio>
+
+	
+<!-- End Of Audio -->
+	
+  <!--  Ads
+   <div id="MobileAdInGamePreroll"  onclick="MobileAdInGamePreroll.Close();ShowAds();">
+            <div id="MobileAdInGamePreroll-Box">
+               <div id="MobileAdInGamePreroll-Box-Header"  onclick="MobileAdInGamePreroll.Close();ShowAds();"></div>
+               <a id="MobileAdInGamePreroll-Box-Close" onclick="MobileAdInGamePreroll.Close();ShowAds();" style="display:block !important;"></a>
+               <div id="MobileAdInGamePreroll-Box-Body">
+                  <center>
+                       <a href="http://www.gamessumo.com/" target="_blank">
+                     <img src="adbox.gif">
+                      </a>
+                  </center>
+               </div>
+               <div id='MobileAdInGamePreroll-Box-Footer'></div>
+            </div>
+         </div> 
+
+End of Ads-->
+
+  <!-- Leader Board -->
+  
+  
+  <div id="LeaderBoard" class="LeaderBoard" style="display:none;">
+	  
+	  <div id="LeaderBoard-StarBurst" class="LeaderBoard-StarBurst"></div>  
+	<div id="Top-Spacer" class="Top-Spacer"></div>
+	  
+	<div id="LeaderBoard-Close-Button" class="LeaderBoard-Close-Button" onclick="ig.game.hideLeaderBoard();tap();ig.game.showLeaderBoardButton();"></div> 
+  
+	  	  
+	  
+	  <!--<div id="LeaderBoard-Header" class="LeaderBoard-Header"></div>-->
+	  
+	<div id="Leaderboard-Card" class="Leaderboard-Card">
+		
+		<img id="LeaderBoard-Header-Image" class="LeaderBoard-Header-Image" src="LeaderBoard_Image.png" ></img>
+
+
+		<section id="ranking-header-wrapper" class="ranking-header-wrapper">
+			<table id="rankings-header" class="leaderboard-results-header" width="100%">
+				<thead>
+					<tr>
+						<th>पद</th>
+						<th>अवतार</th>
+						<th>नाम</th>
+						<th>स्कोर</th>
+					
+					</tr>
+				</thead>
+			</table>	
+		
+		</section>	
+	
+		<section id="ranking-wrapper" class="ranking-wrapper">
+		
+ 			<section id="ranking-wrapper-holder" class="ranking-wrapper-holder">
+				<div id="root"></div>
+
+					<table id="rankings" class="leaderboard-results" width="100%">
+			
+						<thead>
+							<tr>
+								<th>पद</th>
+								<th>अवतार</th>
+								<th>नाम</th>
+								<th>स्कोर</th>
+					
+							</tr>
+						</thead>
+			
+						<tbody>
+				<!-- Load SCRIMcom Leaderboard Ranings Here-->
+						</tbody>
+			</table>
+		</section>	
+	</section>	
+	
+	</div>	
+    <div id="fbLogin" class="fbLogin" style="display:block;">
+	 
+	    <button class="loginBtn loginBtn--facebook" id="loginbtn" onclick="postScore(); gtag('event', 'FB_Login_Btn_Clicked');">स्कोर पोस्ट करें</button>
+
+    </div>
+    <div id="status"></div>
+  
+  </div>
+  
+  
+  <div id="LbButton" class="LbButton" onclick="ig.game.showLeaderBoard(); autoPostScore(); tap(); gtag('event', 'Viewed_LeaderBoard');" style="display:none;"></div> 
+  
+  <span id="HighScore" class="HighScore" style="display:none;"></span>
+
+<div class="shareBtn" id="fb-share" onclick="gtag('event', 'FB_Share_Btn_Clicked');" style="display:none;"></div>
+
+
+	
+<span class="L-ico" id="iconTexta" style="display:none;"></span>
+<span class="P-ico" id="iconTextb" style="display:none;"></span>
+<span class="S-ico" id="iconTextc" style="display:none;"></span>	
+	
+
+	
+
+  </div>
+</body>
+</html>
