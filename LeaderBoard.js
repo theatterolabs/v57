@@ -30,8 +30,8 @@ $('#fb-share').on('click', function(e) {
     FB.ui(
 	    {
 		method: 'share',
-        	href: 'https://theatterolabs.github.io/v50/',
-		image: 'https://theatterolabs.github.io/v50/FBimg.png',
+        	href: 'https://happu.zee5.com/',
+		image: 'https://happu.zee5.com/FbImg.png',
 		description: 'Play Happu Ki Nikli Savaari',
 		title: 'Happu Ki Nikli Savaari',    
   		
