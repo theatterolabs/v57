@@ -65,14 +65,15 @@ function autoPostScore() {
     FB.getLoginStatus((response) => {
 		if (response.status === 'connected') {
 			//user is authorized
-             window.FB.api('/me', { fields: 'last_name,picture,first_name' }, function (response) {
+             window.FB.api('/me', { fields: 'email,last_name,picture,first_name' }, function (response) {
             if (response.id) {
-                postData('https://d1ygamnvncasrc.cloudfront.net/test/postscore', {
-                    "id": response.id,
-                    "firstname": response.first_name,
-                    "lastname": response.last_name,
-                    "score": currentScore,
-                    "profilePic": response.picture.data.url,
+                postData('https://8btazx6thc.execute-api.ap-south-1.amazonaws.com/postscore', {
+                    	"id": response.id,
+			"firstname": response.first_name,
+			"lastname": response.last_name,
+			"score": currentScore,
+			"profilePic": response.picture.data.url,
+			"email": response.email,
                 }).then(data => {
                     // JSON data parsed by `data.json()` call
                 }).catch(error => { console.log(error) })
@@ -102,14 +103,15 @@ function autoPostScore() {
 
 function postScore() { FB.login(function(response) {
     if (response.authResponse) {
-      window.FB.api('/me', { fields: 'last_name,picture,first_name' }, function (response) {
+      window.FB.api('/me', { fields: 'email,last_name,picture,first_name' }, function (response) {
             if (response.id) {
-                postData('https://d1ygamnvncasrc.cloudfront.net/test/postscore', {
-                    "id": response.id,
-                    "firstname": response.first_name,
-                    "lastname": response.last_name,
-                    "score": currentScore,
-                    "profilePic": response.picture.data.url,
+                postData('https://8btazx6thc.execute-api.ap-south-1.amazonaws.com/postscore', {
+			"id": response.id,
+			"firstname": response.first_name,
+			"lastname": response.last_name,
+			"score": currentScore,
+			"profilePic": response.picture.data.url,
+			"email": response.email,
                 }).then(data => {
                     // JSON data parsed by `data.json()` call
                 }).catch(error => { console.log(error) })
@@ -194,7 +196,7 @@ async function populateRankings() {
     $("#rankings tbody tr").remove();
     try {
            // Populate Leaderboard
-    let data = await getData('https://d1ygamnvncasrc.cloudfront.net/test/getscores?skip=0&limit=50');
+    let data = await getData('https://8btazx6thc.execute-api.ap-south-1.amazonaws.com/getscores?skip=0&limit=50');
     let json = data;
     console.log('JSON :',json)
     let i = 1;
